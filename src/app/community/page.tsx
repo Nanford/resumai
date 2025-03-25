@@ -1,15 +1,18 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import Link from 'next/link';
 import CommunitySection from '../components/CommunitySection';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { HomeIcon } from '@heroicons/react/24/outline';
+import { useSearchParams } from 'next/navigation';
 
-export default function CommunityPage() {
+// 内部组件，使用useSearchParams
+function CommunityPageContent() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams(); // 即使不使用，也确保被包装在Suspense边界内
 
   // 初始化i18n
   useEffect(() => {
@@ -69,5 +72,14 @@ export default function CommunityPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// 主页面组件
+export default function CommunityPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CommunityPageContent />
+    </Suspense>
   );
 } 

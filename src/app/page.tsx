@@ -4,9 +4,14 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
-export default function Home() {
+// 创建内部组件，使用useSearchParams
+function HomeContent() {
   const { t } = useTranslation();
+  // 这里使用useSearchParams，即使不直接使用它的值
+  const searchParams = useSearchParams();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -155,5 +160,14 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// 主页面组件
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 } 

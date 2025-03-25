@@ -1,19 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import ChatComponent from '../components/ChatComponent';
 import Sidebar from '../components/Sidebar';
 import Link from 'next/link';
 import { HomeIcon } from '@heroicons/react/24/outline';
+import { useSearchParams } from 'next/navigation';
 
 interface Conversation {
   id: string;
   title: string;
 }
 
-export default function ChatPage() {
+// 内部组件，使用useSearchParams
+function ChatPageContent() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams(); // 即使不使用，也确保被包装在Suspense边界内
   const [conversations, setConversations] = useState<Conversation[]>([
     { id: 'current', title: 'New Conversation' }
   ]);
@@ -119,5 +122,14 @@ export default function ChatPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// 主页面组件
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ChatPageContent />
+    </Suspense>
   );
 } 

@@ -1,5 +1,5 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from './providers'
 import GoogleAnalytics from './components/GoogleAnalytics'
@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: 'ResuMAI - AI Resume Assistant',
   description: 'Get personalized career advice and resume tips with AI',
   keywords: 'resume, career, AI, job search, career advice',
-  viewport: 'width=device-width, initial-scale=1.0'
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
 }
 
 export default function RootLayout({
