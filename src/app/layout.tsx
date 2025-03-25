@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from './providers'
+import GoogleAnalytics from './components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <GoogleAnalytics />
       </head>
       <body className={inter.className}>
         <Providers>
